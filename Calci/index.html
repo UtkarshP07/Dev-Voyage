@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="calci">
+      <div>
+        <div id="prevOperations"></div>
+        <div type="number" id="globalVal"></div>
+      </div>
+      <div class="entry-point">
+        <input
+          type="number"
+          class="input-number"
+          id="input-field"
+          placeholder="Enter value"
+        /><button class="spl-btn black" onclick="clear()">Clr</button>
+      </div>
+      <div class="complete-buttons">
+        <div class="numbers">
+          <div class="layer-number">
+            <button
+              class="spl-btn blue"
+              value="1"
+              onclick="placevalue(this.value)"
+            >
+              1
+            </button>
+            <button
+              class="spl-btn blue"
+              value="2"
+              onclick="placevalue(this.value)"
+            >
+              2
+            </button>
+            <button
+              class="spl-btn blue"
+              value="3"
+              onclick="placevalue(this.value)"
+            >
+              3
+            </button>
+            <button
+              class="spl-btn black"
+              value="+"
+              onclick="placevalue(this.value)"
+            >
+              +
+            </button>
+          </div>
+          <div class="layer-number">
+            <button
+              class="spl-btn blue"
+              value="4"
+              onclick="placevalue(this.value)"
+            >
+              4
+            </button>
+            <button
+              class="spl-btn blue"
+              value="5"
+              onclick="placevalue(this.value)"
+            >
+              5
+            </button>
+            <button
+              class="spl-btn blue"
+              value="6"
+              onclick="placevalue(this.value)"
+            >
+              6
+            </button>
+            <button
+              class="spl-btn black"
+              value="-"
+              onclick="placevalue(this.value)"
+            >
+              -
+            </button>
+          </div>
+          <div class="layer-number">
+            <button
+              class="spl-btn blue"
+              value="7"
+              onclick="placevalue(this.value)"
+            >
+              7
+            </button>
+            <button
+              class="spl-btn blue"
+              value="8"
+              onclick="placevalue(this.value)"
+            >
+              8
+            </button>
+            <button
+              class="spl-btn blue"
+              value="9"
+              onclick="placevalue(this.value)"
+            >
+              9
+            </button>
+            <button
+              class="spl-btn black"
+              value="*"
+              onclick="placevalue(this.value)"
+            >
+              x
+            </button>
+          </div>
+          <div class="layer-number">
+            <button class="spl-btn black" value="=" onclick="compute()">
+              =
+            </button>
+            <button
+              class="spl-btn blue"
+              value="0"
+              onclick="placevalue(this.value)"
+            >
+              0
+            </button>
+            <button
+              class="spl-btn black"
+              value="."
+              onclick="placevalue(this.value)"
+            >
+              .
+            </button>
+            <button
+              class="spl-btn black"
+              value="/"
+              onclick="placevalue(this.value)"
+            >
+              /
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
