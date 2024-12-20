@@ -1,75 +1,77 @@
-let globalValue = 0;
-let prevFirstValue = 0;
-let prevOperation = "";
-let prevSecondValue = 0;
+let globalVal = "";
+let currString = "";
+let ans = "";
 
-let allOperationsArrayStringified = [];
+function isOperation(val) {
+  return ["+", "-", "/", "*"].includes(val);
+}
 
-let setGlobal = (value1, operation, value2) => {
-  value1 = Number(value1);
-  value2 = Number(value2);
-  if (operation === "*") globalValue = value1 * value2;
-  else if (operation === "/") globalValue = value1 / value2;
-  else if (operation === "+") globalValue = value1 + value2;
-  else if (operation === "-") globalValue = value1 - value2;
-  else globalValue = 0;
-
-  document.getElementById("globalVal").innerHTML = globalValue;
-  let temp = document.getElementById("input-field");
-  temp.value = "";
-  let currentOperation = value1 + " " + operation + " " + value2;
-  allOperationsArrayStringified.push(currentOperation);
-  console.log(allOperationsArrayStringified);
-};
-
-let setPrevFirstNumber = (value) => {
-  prevFirstValue = value;
-};
-
-let setPrevOperation = (value) => {
-  prevOperation = value;
-};
-
-let setPrevSecondNumber = (value) => {
-  prevSecondValue = value;
-};
-
-let placevalue = (value) => {
-  if (
-    value !== "+" &&
-    value !== "-" &&
-    value !== "*" &&
-    value !== "/" &&
-    value !== "."
-  ) {
-    value = Number(value);
-  } else {
-    setPrevOperation(value);
-    let temp = document.getElementById("input-field");
-    temp.value = 0;
-    return;
+let placevalue = (val) => {
+  if (isOperation(val) && isOperation(currString[currString.length - 1])) {
+    currString = currString.slice(0, -1);
   }
+  currString += val;
   let temp = document.getElementById("input-field");
-  let initialVal = temp.value;
-  temp.value = initialVal * 10 + value;
-  if (prevOperation !== "") setPrevSecondNumber(temp.value);
-  else setPrevFirstNumber(temp.value);
+  temp.value = currString;
+  console.log(currString);
 };
 
-let compute = () => {
-  if (globalValue == 0) {
-    setGlobal(prevFirstValue, prevOperation, prevSecondValue);
-  } else {
-    setGlobal(globalValue, prevOperation, prevSecondValue);
+let computeAll = () => {
+  if (isOperation(currString[0]) && currString[0] !== "-") {
+    currString = currString.slice(1, currString.length);
   }
-  prevFirstValue = globalValue;
-  prevOperation = "";
-  prevSecondValue = 0;
+  if (isOperation(currString[currString.length - 1])) {
+    currString = currString.slice(0, -1);
+  }
+
+  computation(currString);
+  globalVal = currString;
+  currString = "";
 };
 
-let clear = () => {
-  globalValue = 0;
-  prevFirstValue = 0;
-  prevOperation = "";
-  prevSecondValue = 0;
+let computeOperation = (x1, x2, operation) => {
+  switch (operation) {
+    case "+":
+      return x1 + x2;
+    case "-":
+      return x1 - x2;
+    case "/":
+      return x2 !== 0 ? x1 / x2 : "Division by zero error";
+    case "*":
+      return x1 * x2;
+    default:
+      return "Invalid operation";
+  }
+};
+
+let computation = (currString) => {
+  let ans = 0;
+  let intermediate = 0;
+  let operation = "";
+
+  for (let i = 0; i < currString.length; i++) {
+    const curr = currString[i];
+
+    if (!isOperation(curr)) {
+      if (operation === "") {
+        ans = ans * 10 + Number(curr);
+      } else {
+        intermediate = intermediate * 10 + Number(curr);
+      }
+    } else {
+      if (operation === "") operation = curr;
+      else {
+        ans = computeOperation(ans, intermediate, operation);
+        intermediate = 0;
+        operation = curr;
+      }
+    }
+  }
+
+  if (operation !== "") {
+    ans = computeOperation(ans, intermediate, operation);
+  }
+
+  let temp = document.getElementById("input-field");
+  temp.value = String(ans);
 };
