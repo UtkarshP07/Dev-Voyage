@@ -75,3 +75,10 @@ let computation = (currString) => {
   let temp = document.getElementById("input-field");
   temp.value = String(ans);
 };
+
+let clearAll = () => {
+  let temp = document.getElementById("input-field");
+  temp.value = "";
+  currString = "";
+};
+
